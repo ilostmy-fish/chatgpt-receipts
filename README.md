@@ -7,7 +7,7 @@ Clicking the toolbar icon opens a stats popup.
 
 ## Install
 
-Requires **Firefox 128 or newer**. Firefox 128 added support for running a manifest content script in the page's `MAIN` world, which Receipts needs to wrap ChatGPT's `window.fetch` before the app captures it.
+Requires **Firefox 140 or newer**. Receipts uses a manifest content script in the page's `MAIN` world so it can wrap ChatGPT's `window.fetch` before the app captures it. Firefox 140 is the minimum here because the manifest also uses Mozilla's built-in data-collection declaration required for new AMO submissions.
 
 ### Temporary install for development
 
