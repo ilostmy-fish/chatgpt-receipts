@@ -7,14 +7,16 @@ Clicking the toolbar icon opens a stats popup.
 
 ## Install
 
-1. Get the code: `git clone https://github.com/Lex-au/chatgpt-receipts`, or **Code → Download ZIP**
-   on GitHub and unzip it
+1. Download `chatgpt-receipts-v*.zip` from the
+   [latest release](https://github.com/Lex-au/chatgpt-receipts/releases/latest) and unzip it.
+   (Or with git: `git clone https://github.com/Lex-au/chatgpt-receipts`.)
 2. Open `chrome://extensions`
 3. Turn on **Developer mode** (top right)
-4. **Load unpacked** → pick the `chatgpt-receipts` folder
+4. **Load unpacked** → pick the `chatgpt-receipts` folder (the one containing `manifest.json`)
 5. Reload any open chatgpt.com tabs
 
-To update later, pull (or re-download) and click the reload icon on the extension's card.
+To update later, download the new release (or `git pull`) into the same folder and click the reload
+icon on the extension's card. Your stats are kept.
 
 ## Reading the badge
 
