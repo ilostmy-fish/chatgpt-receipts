@@ -1,4 +1,4 @@
-// Toolbar popup: stats over every reply content.js has saved (chrome.storage.local, "chat:<id>").
+// Toolbar popup: stats over every reply content.js has saved (browser.storage.local, "chat:<id>").
 (() => {
   const DAY_MS = 86_400_000;
   const RANGE_DAYS = { 1: 1, 7: 7, 30: 30, all: Infinity };
@@ -34,7 +34,7 @@
   let replies = [];
 
   async function load() {
-    const all = await chrome.storage.local.get(null);
+    const all = await browser.storage.local.get(null);
     replies = [];
     for (const [key, chat] of Object.entries(all)) {
       if (!key.startsWith('chat:') || !chat?.messages) continue;
@@ -248,15 +248,15 @@
       return;
     }
     disarm();
-    await chrome.storage.local.clear();
+    await browser.storage.local.clear();
     await load();
   });
 
-  $('#version').textContent = `v${chrome.runtime.getManifest().version}`;
+  $('#version').textContent = `v${browser.runtime.getManifest().version}`;
 
   // Replies that land while the popup is open show up live.
   let reloadTimer = 0;
-  chrome.storage.onChanged.addListener(() => {
+  browser.storage.onChanged.addListener(() => {
     clearTimeout(reloadTimer);
     reloadTimer = setTimeout(load, 300);
   });

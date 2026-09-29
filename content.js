@@ -25,14 +25,14 @@
   }
 
   // ---- persistence -------------------------------------------------------------------------
-  // One chrome.storage.local entry per chat ("chat:<conversation id>"). Opening a chat loads its
+  // One browser.storage.local entry per chat ("chat:<conversation id>"). Opening a chat loads its
   // entry, so every turn gets its badge even if ChatGPT's history payload leaves the metadata out.
   // The requested model and response time only exist at send time; this is the only copy of them.
 
   function loadChat(chatId) {
     if (!chats.has(chatId)) {
       const key = CHAT_PREFIX + chatId;
-      chats.set(chatId, chrome.storage.local.get(key).then((got) => {
+      chats.set(chatId, browser.storage.local.get(key).then((got) => {
         const chat = got[key] || { id: chatId, updatedAt: 0, messages: {} };
         for (const [msgId, saved] of Object.entries(chat.messages)) {
           // Anything that reached memory before its chat was known wins over the saved copy.
@@ -56,7 +56,7 @@
     if (!ids.length) return;
     const batch = {};
     for (const id of ids) batch[CHAT_PREFIX + id] = await chats.get(id);
-    chrome.storage.local.set(batch);
+    browser.storage.local.set(batch);
   }
   function scheduleSave() {
     clearTimeout(saveTimer);

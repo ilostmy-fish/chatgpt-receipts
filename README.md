@@ -1,22 +1,40 @@
 # Receipts
 
-Chrome extension that shows which model actually answered each ChatGPT reply, and flags it when you
+Firefox extension that shows which model actually answered each ChatGPT reply, and flags it when you
 get rerouted to a different model than the one you picked. It reads the model slugs from the
 conversation traffic the page already receives and puts a badge in each reply's action bar.
 Clicking the toolbar icon opens a stats popup.
 
 ## Install
 
-1. Download `chatgpt-receipts-v*.zip` from the
-   [latest release](https://github.com/Lex-au/chatgpt-receipts/releases/latest) and unzip it.
-   (Or with git: `git clone https://github.com/Lex-au/chatgpt-receipts`.)
-2. Open `chrome://extensions`
-3. Turn on **Developer mode** (top right)
-4. **Load unpacked** → pick the `chatgpt-receipts` folder (the one containing `manifest.json`)
-5. Reload any open chatgpt.com tabs
+Requires **Firefox 128 or newer**. Firefox 128 added support for running a manifest content script in the page's `MAIN` world, which Receipts needs to wrap ChatGPT's `window.fetch` before the app captures it.
 
-To update later, download the new release (or `git pull`) into the same folder and click the reload
-icon on the extension's card. Your stats are kept.
+### Temporary install for development
+
+1. Clone this fork and check out the Firefox branch:
+   ```sh
+   git clone https://github.com/ilostmy-fish/chatgpt-receipts.git
+   cd chatgpt-receipts
+   git checkout firefox
+   ```
+2. In Firefox, open `about:debugging`.
+3. Click **This Firefox**.
+4. Click **Load Temporary Add-on...** and select `manifest.json` from this folder.
+5. Reload any open `chatgpt.com` tabs.
+
+The temporary add-on is removed when Firefox restarts. After editing the extension, use **Reload** on its card in `about:debugging`.
+
+### Validate and package
+
+Mozilla's `web-ext` tool can lint, run, and package the extension:
+
+```sh
+web-ext lint
+web-ext run
+web-ext build
+```
+
+A built package must be signed by Mozilla for normal installation in release Firefox. The manifest includes a stable Gecko extension ID for signing and declares that the extension does not transmit collected data outside the local browser.
 
 ## Reading the badge
 
@@ -65,7 +83,7 @@ Only visible text replies count. Thinking traces and hidden helper messages are 
   `/backend-api/` responses it tees the body: SSE streams (sending a message) and conversation JSON
   (opening a chat). It walks every payload generically, so it handles the full-message format, the
   delta-encoded `{p, o, v}` patch format, and stream-level metadata events.
-- `content.js` receives the data and saves it per chat in `chrome.storage.local`, one entry per
+- `content.js` receives the data and saves it per chat in `browser.storage.local`, one entry per
   conversation id (`chat:<id>`, the uuid after `/c/` in the URL). Opening a chat loads its entry,
   so every turn keeps its badge across reloads and browser restarts. The chat id comes from the
   network payload first, since a brand-new chat has no id in the URL until the first reply lands.
@@ -81,7 +99,7 @@ Only visible text replies count. Thinking traces and hidden helper messages are 
 If badges don't appear, open a chat, open devtools (F12) → Console, and run this. It copies a
 report to the clipboard: whether the extension loaded, every `/backend-api/` response it saw with
 how many messages it found in each, and which `data-*` attributes the chat DOM uses. No message
-text is included. (Chrome may ask you to type `allow pasting` first.)
+text is included. (DevTools may ask you to type `allow pasting` first.)
 
 ```js
 copy(JSON.stringify({
