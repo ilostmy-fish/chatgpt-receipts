@@ -1,0 +1,48 @@
+.cmb-badge {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 6px 0 2px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.04);
+  color: #5d5d5d;
+  font: 500 11px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.dark .cmb-badge,
+[data-theme="dark"] .cmb-badge {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: #b4b4b4;
+}
+
+/* Sitting in the reply's action bar, right after the last button. */
+.cmb-badge.cmb-inline {
+  margin: 0 0 0 8px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.cmb-badge .cmb-model { font-weight: 700; }
+.cmb-badge .cmb-sep { opacity: 0.4; }
+.cmb-badge .cmb-dim { opacity: 0.6; font-style: italic; }
+
+.cmb-badge.cmb-warn {
+  border-color: #e8b04a;
+  background: #fff4dc;
+  color: #7a4500;
+}
+.dark .cmb-badge.cmb-warn,
+[data-theme="dark"] .cmb-badge.cmb-warn {
+  border-color: rgba(255, 176, 32, 0.45);
+  background: rgba(255, 176, 32, 0.12);
+  color: #ffc861;
+}
+
+.cmb-badge.cmb-copied { background: rgba(16, 163, 127, 0.18); }

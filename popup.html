@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Receipts</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="head">
+    <img src="icons/icon-48.png" width="30" height="30" alt="">
+    <div>
+      <h1>Receipts</h1>
+      <p>Which model actually answered</p>
+    </div>
+  </header>
+
+  <div class="range" role="radiogroup" aria-label="Time range">
+    <button type="button" role="radio" data-range="1">24h</button>
+    <button type="button" role="radio" data-range="7">7 days</button>
+    <button type="button" role="radio" data-range="30">30 days</button>
+    <button type="button" role="radio" data-range="all">All</button>
+  </div>
+
+  <p id="empty" class="empty" hidden></p>
+
+  <main id="stats" hidden>
+    <section class="kpis">
+      <div class="tile">
+        <div class="label">Replies</div>
+        <div class="value" id="k-replies"></div>
+        <div class="sub" id="k-replies-sub"></div>
+      </div>
+      <div class="tile">
+        <div class="label"><span id="k-warn"></span>Rerouted</div>
+        <div class="value" id="k-rerouted"></div>
+        <div class="sub">replies</div>
+      </div>
+      <div class="tile">
+        <div class="label">Reroute rate</div>
+        <div class="value" id="k-rate"></div>
+        <div class="sub" id="k-rate-sub"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Answered by</h2>
+      <div id="bars"></div>
+    </section>
+
+    <section>
+      <h2>Reroutes</h2>
+      <p id="pairs-empty" class="note">No reroutes in this range.</p>
+      <ul id="pairs" class="list"></ul>
+    </section>
+
+    <section id="recent-section">
+      <h2>Latest reroutes</h2>
+      <ul id="recent" class="list"></ul>
+    </section>
+
+    <section>
+      <h2>Response time</h2>
+      <p id="timing-empty" class="note">Only timed for messages sent while the extension is running.</p>
+      <table id="timing">
+        <thead>
+          <tr><th>Model</th><th class="num">Avg</th><th class="num">Fastest</th><th class="num">Replies</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <button type="button" id="reset" class="ghost">Reset data</button>
+    <span class="muted"><span id="version"></span> &middot; stored in this browser</span>
+  </footer>
+
+  <template id="warn-icon">
+    <svg class="warn" viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M7.13 2.5a1 1 0 0 1 1.74 0l6.1 10.5a1 1 0 0 1-.87 1.5H1.9a1 1 0 0 1-.87-1.5z" fill="var(--warning)"/>
+      <path d="M8 6.25v3.5" stroke="#1a1a19" stroke-width="1.6" stroke-linecap="round"/>
+      <circle cx="8" cy="12" r=".95" fill="#1a1a19"/>
+    </svg>
+  </template>
+  <div id="tip" class="tip" role="tooltip" hidden></div>
+
+  <script src="shared.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

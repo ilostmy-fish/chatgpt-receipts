@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Simplified for toolbar sizes (16/32px): bigger receipt, no text lines, heavier check. -->
+  <rect x="0.5" y="0.5" width="31" height="31" rx="7.5" fill="#18181b"/>
+  <path d="M7.5 7a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v20.5l-4.25-2.5-4.25 2.5-4.25-2.5-4.25 2.5z" fill="#f4f3ef"/>
+  <path d="M11 15.75l3.25 3.25 6.5-7" fill="none" stroke="#f5a524" stroke-width="3.25" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
